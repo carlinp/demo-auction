@@ -6,7 +6,7 @@ import software.jevera.domain.UserDto;
 public class DemoAuctionApp {
 
     public static void main(String[] args) {
-        ApplicationFactory.userService.registerUser(new UserDto());
+        ApplicationFactory.userService.registerUser(new UserDto("userlogin", "password"));
     }
 
 }
