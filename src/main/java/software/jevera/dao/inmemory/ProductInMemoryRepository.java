@@ -3,8 +3,10 @@ package software.jevera.dao.inmemory;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
@@ -12,20 +14,22 @@ import software.jevera.domain.User;
 
 public class ProductInMemoryRepository implements ProductRepository {
 
-    private List<Product> products = new ArrayList<>();
+    private Set<Product> products = new HashSet<>();
 
     private AtomicLong counter = new AtomicLong(0);
 
     @Override
     public Product save(Product product) {
-        product.setId(counter.incrementAndGet());
+        if (product.getId() == null) {
+            product.setId(counter.incrementAndGet());
+        }
         products.add(product);
         return product;
     }
 
     @Override
     public List<Product> findAll() {
-        return products;
+        return new ArrayList<>(products);
     }
 
     @Override

@@ -1,18 +1,25 @@
 package software.jevera.service.product;
 
-import static software.jevera.service.product.Event.DELETE;
-import static software.jevera.service.product.Event.PUBLISH;
-import static software.jevera.service.product.ProductStatus.DELETED;
-import static software.jevera.service.product.ProductStatus.NEW;
-import static software.jevera.service.product.ProductStatus.PUBLISHED;
+import static software.jevera.service.product.ProductStateEnum.DELETED;
+import static software.jevera.service.product.ProductStateEnum.NEW;
+import static software.jevera.service.product.ProductStateEnum.PUBLISHED;
 
-import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
 
-public class New {
-    public New(StateMachine transitions) {
-        transitions.from(NEW)
-                .on(PUBLISH).transitTo(PUBLISHED)
-                .on(DELETE).transitTo(DELETED);
+public class New extends ProductState {
+
+    @Override
+    public ProductStateEnum getStatusName() {
+        return NEW;
+    }
+
+    @Override
+    public void publish(Product product) {
+        product.setStatus(PUBLISHED);
+    }
+
+    @Override
+    public void delete(Product product) {
+        product.setStatus(DELETED);
     }
 }

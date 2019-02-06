@@ -1,5 +1,5 @@
 package software.jevera.service.product;
 
-public enum  ProductStatus {
+public enum ProductStateEnum {
     NEW, PUBLISHED, ARCHIVED, FINISHED, DELETED
 }

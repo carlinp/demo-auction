@@ -1,5 +1,7 @@
 package software.jevera.configuration;
 
+import static java.util.Arrays.asList;
+
 import software.jevera.dao.inmemory.CommentInMemoryRepository;
 import software.jevera.dao.inmemory.ProductInMemoryRepository;
 import software.jevera.dao.inmemory.UserInMemoryRepository;
@@ -24,13 +26,12 @@ public class ApplicationFactory {
         userService = new UserService(new UserInMemoryRepository());
         ProductInMemoryRepository productRepository = new ProductInMemoryRepository();
         commentService = new CommentService(new CommentInMemoryRepository(), productRepository);
-        StateMachine stateMachine = new StateMachine();
-        new Archived(stateMachine);
-        new Deleted(stateMachine);
-        new Finished(stateMachine);
-        new New(stateMachine);
-        new Published(stateMachine);
+        StateMachine stateMachine = new StateMachine(asList(
+                new Archived(),
+                new Deleted(),
+                new Finished(),
+                new New(),
+                new Published()));
         productService = new ProductService(productRepository, stateMachine, new ScheduleExecutorThreadImpl());
     }
-
 }

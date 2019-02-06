@@ -1,15 +1,10 @@
 package software.jevera.service;
 
-import static software.jevera.service.product.Event.DELETE;
-import static software.jevera.service.product.Event.FINISH;
-import static software.jevera.service.product.Event.PUBLISH;
-
 import java.util.List;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Bid;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
-import software.jevera.exceptions.AmountOfBidUncorrect;
 import software.jevera.exceptions.BussinesException;
 import software.jevera.exceptions.EntityNotFound;
 import software.jevera.service.product.StateMachine;
@@ -43,26 +38,27 @@ public class ProductService {
 
     public void publish(Long id) {
         Product product = getProduct(id);
-        stateMachine.onEvent(product, PUBLISH);
+        stateMachine.publish(product);
         scheduleExecutor.scheduleFinish(id, product.getFinishDate(), this::finish);
+        productRepository.save(product);
     }
 
     public void delete(Long id) {
         Product product = getProduct(id);;
-        stateMachine.onEvent(product, DELETE);
+        stateMachine.delete(product);
+        productRepository.save(product);
     }
 
     public void finish(Long id) {
         Product product = getProduct(id);;
-        stateMachine.onEvent(product, FINISH);
+        stateMachine.finish(product);
+        productRepository.save(product);
     }
 
     public void addBid(Long id, Integer amount, User user) {
         Product product = getProduct(id);;
-        if (product.getMaxBid().filter(bid -> bid.getAmount() >= amount).isPresent()) {
-            throw new AmountOfBidUncorrect();
-        }
-        product.addBid(new Bid(amount, product, user));
+        stateMachine.addBid(product, new Bid(amount, product, user));
+        productRepository.save(product);
     }
 
     private Product getProduct(Long id) {

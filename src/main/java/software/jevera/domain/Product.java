@@ -1,14 +1,15 @@
 package software.jevera.domain;
 
 import static java.util.Comparator.comparing;
-import static software.jevera.service.product.ProductStatus.NEW;
+import static software.jevera.service.product.ProductStateEnum.NEW;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import software.jevera.service.product.ProductStatus;
+import software.jevera.service.product.ProductStateEnum;
 
 public class Product {
     private Long id;
@@ -19,7 +20,7 @@ public class Product {
     private Integer startPrice;
     private List<Bid> bids = new ArrayList<>();
     private Instant finishDate;
-    private ProductStatus status = NEW;
+    private ProductStateEnum status = NEW;
     private User buyer;
 
     public Product() {
@@ -102,11 +103,11 @@ public class Product {
         this.finishDate = finishDate;
     }
 
-    public ProductStatus getStatus() {
+    public ProductStateEnum getStatus() {
         return status;
     }
 
-    public void setStatus(ProductStatus status) {
+    public void setStatus(ProductStateEnum status) {
         this.status = status;
     }
 
@@ -120,5 +121,22 @@ public class Product {
 
     public Optional<Bid> getMaxBid() {
         return bids.stream().max(comparing(Bid::getAmount));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

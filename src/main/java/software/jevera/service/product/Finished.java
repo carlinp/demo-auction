@@ -1,11 +1,18 @@
 package software.jevera.service.product;
 
-import static software.jevera.service.product.Event.FINISH;
-import static software.jevera.service.product.ProductStatus.ARCHIVED;
-import static software.jevera.service.product.ProductStatus.FINISHED;
+import static software.jevera.service.product.ProductStateEnum.ARCHIVED;
+import static software.jevera.service.product.ProductStateEnum.FINISHED;
 
-public class Finished {
-    public Finished(StateMachine transition) {
-        transition.from(ARCHIVED).on(FINISH).transitTo(FINISHED);
+import software.jevera.domain.Product;
+
+public class Finished extends ProductState {
+    @Override
+    public void delete(Product product) {
+        product.setStatus(ARCHIVED);
+    }
+
+    @Override
+    public ProductStateEnum getStatusName() {
+        return FINISHED;
     }
 }
