@@ -4,19 +4,18 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import software.jevera.dao.UserRepository;
 import software.jevera.domain.User;
 import software.jevera.domain.UserDto;
 import software.jevera.exceptions.UncorrectGrant;
 import software.jevera.exceptions.UserAlreadyExists;
 
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public User registerUser(UserDto userDto) {
         if (userRepository.isUserWithLongExists(userDto.getLogin())) {
@@ -40,15 +39,12 @@ public class UserService {
         return encryptPassword.equals(user.getPasswordHash());
     }
 
+    @SneakyThrows
     private static String encryptPassword(String password) {
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(password.getBytes(UTF_8));
-            return new BigInteger(1, crypt.digest()).toString(16);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+        crypt.reset();
+        crypt.update(password.getBytes(UTF_8));
+        return new BigInteger(1, crypt.digest()).toString(16);
     }
 
 }

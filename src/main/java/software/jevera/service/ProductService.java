@@ -1,6 +1,7 @@
 package software.jevera.service;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Bid;
 import software.jevera.domain.Product;
@@ -9,18 +10,12 @@ import software.jevera.exceptions.BussinesException;
 import software.jevera.exceptions.EntityNotFound;
 import software.jevera.service.product.StateMachine;
 
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final StateMachine stateMachine;
     private final ScheduleExecutor scheduleExecutor;
-
-    public ProductService(ProductRepository productRepository, StateMachine stateMachine,
-                          ScheduleExecutor scheduleExecutor) {
-        this.productRepository = productRepository;
-        this.stateMachine = stateMachine;
-        this.scheduleExecutor = scheduleExecutor;
-    }
 
     public Product createProduct(Product product, User user) {
         assertIsNull(product.getId(), "Id already exists.");

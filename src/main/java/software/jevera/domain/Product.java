@@ -7,10 +7,18 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import software.jevera.service.product.ProductStateEnum;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
+@EqualsAndHashCode(of = "id")
 public class Product {
     private Long id;
     private String name;
@@ -23,63 +31,9 @@ public class Product {
     private ProductStateEnum status = NEW;
     private User buyer;
 
-    public Product() {
-    }
-
-    public Product(String name, String description, User owner, Integer price, Instant finishDate) {
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.startPrice = price;
-        this.finishDate = finishDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Product setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public Integer getStartPrice() {
-        return startPrice;
-    }
-
-    public void setStartPrice(Integer startPrice) {
-        this.startPrice = startPrice;
+        return this;
     }
 
     public List<Bid> getBids() {
@@ -91,52 +45,8 @@ public class Product {
         bid.setProduct(this);
     }
 
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
-    }
-
-    public Instant getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Instant finishDate) {
-        this.finishDate = finishDate;
-    }
-
-    public ProductStateEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(ProductStateEnum status) {
-        this.status = status;
-    }
-
-    public User getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
-    }
-
     public Optional<Bid> getMaxBid() {
         return bids.stream().max(comparing(Bid::getAmount));
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

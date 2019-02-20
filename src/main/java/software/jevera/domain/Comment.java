@@ -1,5 +1,17 @@
 package software.jevera.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
+@AllArgsConstructor
 public class Comment {
 
     private Long id;
@@ -7,44 +19,9 @@ public class Comment {
     private User author;
     private Product product;
 
-    public Comment() {
-    }
-
     public Comment(String text, User author, Product product) {
         this.text = text;
         this.author = author;
-        this.product = product;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
         this.product = product;
     }
 }

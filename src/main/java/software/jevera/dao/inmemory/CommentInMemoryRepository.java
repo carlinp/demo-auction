@@ -25,7 +25,7 @@ public class CommentInMemoryRepository implements CommentRepository {
 
     @Override
     public List<Comment> findByProductId(Long productId) {
-        return comments.stream().filter(comment -> comment.getId().equals(productId)).collect(toList());
+        return comments.stream().filter(comment -> comment.getProduct().getId().equals(productId)).collect(toList());
     }
 
     @Override
@@ -36,5 +36,9 @@ public class CommentInMemoryRepository implements CommentRepository {
     @Override
     public void delete(Long id) {
         comments.removeIf(comment -> comment.getId().equals(id));
+    }
+
+    public List<Comment> findAll() {
+        return new ArrayList<>(comments);
     }
 }

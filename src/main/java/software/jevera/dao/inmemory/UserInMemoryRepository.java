@@ -25,4 +25,8 @@ public class UserInMemoryRepository implements UserRepository {
     public Optional<User> findUserByLogin(String login) {
         return users.stream().filter(user -> user.getLogin().equals(login)).findAny();
     }
+
+    public List<User> findAll() {
+        return new ArrayList<>(users);
+    }
 }
