@@ -10,7 +10,7 @@ import software.jevera.domain.Bid;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
 
-public class ProductInMemoryRepositoryTest {
+public class ProductInMemoryRepositoryIntTest {
 
     private ProductInMemoryRepository repository = new ProductInMemoryRepository();
 
