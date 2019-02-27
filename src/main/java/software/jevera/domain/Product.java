@@ -13,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import software.jevera.domain.annotations.DefaultValue;
+import software.jevera.domain.annotations.LogField;
 import software.jevera.service.product.ProductStateEnum;
 
 @NoArgsConstructor
@@ -20,13 +22,20 @@ import software.jevera.service.product.ProductStateEnum;
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
 public class Product {
+    @LogField
     private Long id;
+    @LogField
+    @DefaultValue("Default name")
     private String name;
+    @LogField
+    @DefaultValue(value = "Default description", setIfBlank = true)
     private String description;
     private List<Comment> comments = new ArrayList<>();
     private User owner;
+    @LogField
     private Integer startPrice;
     private List<Bid> bids = new ArrayList<>();
+    @LogField
     private Instant finishDate;
     private ProductStateEnum status = NEW;
     private User buyer;
