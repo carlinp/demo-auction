@@ -23,7 +23,7 @@ public class DemoAuctionApp {
         Product savedProduct = productService.createProduct(product, user);
         productService.getAllProducts();
         productService.publish(savedProduct.getId());
-        
+
     }
 
 }
