@@ -1,11 +1,11 @@
 package software.jevera;
 
-import org.apache.catalina.startup.Tomcat;
+//import org.apache.catalina.startup.Tomcat;
 
 public class DemoAuctionApp {
 
     public static void main(String[] args) {
-        Tomcat tomcat = new Tomcat();
+        //Tomcat tomcat = new Tomcat();
 
     }
 
