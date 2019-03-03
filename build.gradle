@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'war'
 }
 
 clean {
@@ -27,6 +28,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
     implementation 'org.projectlombok:lombok:1.18.4'
 
+
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    //compile  'org.apache.tomcat.embed:tomcat-embed-core:9.0.16'
 
 
     testCompile 'org.mockito:mockito-core:2.23.4'
