@@ -6,12 +6,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
 import software.jevera.dao.UserRepository;
 import software.jevera.domain.User;
 import software.jevera.domain.UserDto;
 import software.jevera.exceptions.UncorrectGrant;
 import software.jevera.exceptions.UserAlreadyExists;
 
+@Service
 @RequiredArgsConstructor
 public class UserService {
 

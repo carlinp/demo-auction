@@ -3,9 +3,11 @@ package software.jevera.dao.inmemory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import software.jevera.dao.UserRepository;
 import software.jevera.domain.User;
 
+@Repository
 public class UserInMemoryRepository implements UserRepository {
 
     private final List<User> users = new ArrayList<>();

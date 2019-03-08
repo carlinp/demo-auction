@@ -3,9 +3,11 @@ package software.jevera.service.product;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.stereotype.Component;
 import software.jevera.domain.Bid;
 import software.jevera.domain.Product;
 
+@Component
 public class StateMachine {
 
     private final Map<ProductStateEnum, ProductState> states = new ConcurrentHashMap<>();

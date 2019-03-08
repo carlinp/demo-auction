@@ -2,6 +2,7 @@ package software.jevera.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import software.jevera.dao.CommentRepository;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Comment;
@@ -9,6 +10,7 @@ import software.jevera.domain.Product;
 import software.jevera.domain.User;
 import software.jevera.exceptions.EntityNotFound;
 
+@Service
 @RequiredArgsConstructor
 public class CommentService {
 

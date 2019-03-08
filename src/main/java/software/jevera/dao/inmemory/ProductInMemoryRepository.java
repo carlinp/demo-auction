@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.stereotype.Repository;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
 
+@Repository
 public class ProductInMemoryRepository implements ProductRepository {
 
     private Set<Product> products = new HashSet<>();

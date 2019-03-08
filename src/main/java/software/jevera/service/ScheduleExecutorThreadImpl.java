@@ -8,7 +8,9 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class ScheduleExecutorThreadImpl implements ScheduleExecutor {
 
