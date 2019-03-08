@@ -43,4 +43,19 @@
         </constructor-arg>
     </bean>
 
+    <bean id="userService" class="software.jevera.service.UserService">
+        <constructor-arg>
+            <ref bean="userRepository" />
+        </constructor-arg>
+    </bean>
+
+    <bean id="commentService" class="software.jevera.service.CommentService">
+        <constructor-arg>
+            <ref bean="commentRepository" />
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="productRepository" />
+        </constructor-arg>
+    </bean>
+
 </beans>
