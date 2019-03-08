@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>application.properties</value>
+        </property>
+    </bean>
+
+    <bean id="productRepository" class="software.jevera.dao.inmemory.ProductInMemoryRepository" />
+    <bean id="userRepository" class="software.jevera.dao.inmemory.UserInMemoryRepository" />
+    <bean id="commentRepository" class="software.jevera.dao.inmemory.CommentInMemoryRepository" />
+
+    <bean id="stateMachine" class="software.jevera.service.product.StateMachine">
+        <constructor-arg>
+            <list>
+                <bean class="software.jevera.service.product.Archived" />
+                <bean class="software.jevera.service.product.Deleted" />
+                <bean class="software.jevera.service.product.Finished" />
+                <bean class="software.jevera.service.product.New" />
+                <bean class="software.jevera.service.product.Published" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="productService" class="software.jevera.service.ProductService">
+        <constructor-arg>
+            <ref bean="productRepository" />
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="stateMachine" />
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="software.jevera.service.ScheduleExecutorThreadImpl">
+                <constructor-arg>
+                    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+                        <property name="poolSize" value="${scheduler.thread.count}" />
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+</beans>

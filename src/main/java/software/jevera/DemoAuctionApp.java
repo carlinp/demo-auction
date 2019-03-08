@@ -1,18 +1,18 @@
 package software.jevera;
 
-import static software.jevera.configuration.ApplicationFactory.productService;
-import static software.jevera.configuration.ApplicationFactory.userService;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
-import software.jevera.domain.UserDto;
+import software.jevera.service.ProductService;
 
 public class DemoAuctionApp {
 
     public static void main(String[] args) {
-        User user = userService.registerUser(new UserDto("userlogin", "password"));
-        productService.createProduct(new Product(), user);
-        System.out.println(productService.getAllProducts());;
+        ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+        ProductService productService = context.getBean(ProductService.class);
+        productService.createProduct(new Product(), new User());
+        System.out.println(productService.getAllProducts());
     }
 
 }
