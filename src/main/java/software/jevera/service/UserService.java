@@ -20,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User registerUser(UserDto userDto) {
-        if (userRepository.isUserWithLongExists(userDto.getLogin())) {
+        if (userRepository.isUserWithLoginExists(userDto.getLogin())) {
             throw new UserAlreadyExists(userDto.getLogin());
         }
 

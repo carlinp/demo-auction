@@ -12,6 +12,7 @@ public class SchedulerConfig {
     @Bean
     public TaskScheduler taskScheduler(@Value("${scheduler.thread.count}") int threadCount) {
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+        System.out.println(threadCount);
         taskScheduler.setPoolSize(threadCount);
         return taskScheduler;
     }

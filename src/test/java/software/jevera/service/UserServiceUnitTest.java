@@ -18,7 +18,7 @@ import software.jevera.exceptions.UncorrectGrant;
 import software.jevera.exceptions.UserAlreadyExists;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class UserServiceUnitTest {
 
     @InjectMocks
     private UserService userService;
@@ -53,15 +53,15 @@ public class UserServiceTest {
     @Test
     public void registerUser() {
         UserDto userDto = new UserDto("login", "passwd");
-        when(userRepository.isUserWithLongExists("login")).thenReturn(false);
+        when(userRepository.isUserWithLoginExists("login")).thenReturn(false);
         userService.registerUser(userDto);
-        verify(userRepository).isUserWithLongExists("login");
+        verify(userRepository).isUserWithLoginExists("login");
     }
 
     @Test(expected = UserAlreadyExists.class)
     public void userAlreadyExists() {
         UserDto userDto = new UserDto("login", "passwd");
-        when(userRepository.isUserWithLongExists("login")).thenReturn(true);
+        when(userRepository.isUserWithLoginExists("login")).thenReturn(true);
         userService.registerUser(userDto);
     }
 

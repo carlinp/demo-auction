@@ -23,7 +23,7 @@ import software.jevera.domain.User;
 import software.jevera.exceptions.EntityNotFound;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CommentServiceTest {
+public class CommentServiceUnitTest {
 
     @InjectMocks
     private CommentService commentService;

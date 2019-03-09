@@ -13,7 +13,7 @@ public class UserInMemoryRepository implements UserRepository {
     private final List<User> users = new ArrayList<>();
 
     @Override
-    public boolean isUserWithLongExists(String login) {
+    public boolean isUserWithLoginExists(String login) {
         return users.stream().anyMatch(user -> user.getLogin().equals(login));
     }
 

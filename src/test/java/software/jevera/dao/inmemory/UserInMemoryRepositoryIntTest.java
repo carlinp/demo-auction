@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.junit.Test;
 import software.jevera.domain.User;
 
-public class UserInMemoryRepositoryTest {
+public class UserInMemoryRepositoryIntTest {
 
     private UserInMemoryRepository repository = new UserInMemoryRepository();
 
@@ -19,8 +19,8 @@ public class UserInMemoryRepositoryTest {
                 new User("2", "p2")
                                  );
         users.forEach(repository::save);
-        assertTrue(repository.isUserWithLongExists("1"));
-        assertFalse(repository.isUserWithLongExists("5"));
+        assertTrue(repository.isUserWithLoginExists("1"));
+        assertFalse(repository.isUserWithLoginExists("5"));
     }
 
     @Test
