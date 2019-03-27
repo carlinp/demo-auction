@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
@@ -42,5 +43,10 @@ public class ProductInMemoryRepository implements ProductRepository {
     @Override
     public Optional<Product> findById(Long id) {
         return products.stream().filter(product -> product.getId().equals(id)).findAny();
+    }
+
+    @Override
+    public List<Product> findByMaxPrice(Integer maxPrice) {
+        return products.stream().filter(product -> product.getStartPrice() < maxPrice).collect(toList());
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
+import software.jevera.domain.User;
 import software.jevera.service.product.Archived;
 import software.jevera.service.product.Deleted;
 import software.jevera.service.product.Finished;
@@ -48,7 +49,7 @@ public class ProductServiceTest {
         product.setId(PRODUCT_ID);
         product.setStatus(NEW);
         when(productRepository.findById(PRODUCT_ID)).thenReturn(of(product));
-        productService.publish(PRODUCT_ID);
+        productService.publish(PRODUCT_ID, new User());
         Product publishedProduct = new Product();
         publishedProduct.setId(PRODUCT_ID);
         publishedProduct.setStatus(PUBLISHED);

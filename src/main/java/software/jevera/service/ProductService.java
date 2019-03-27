@@ -1,15 +1,16 @@
 package software.jevera.service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Bid;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
-import software.jevera.exceptions.BussinesException;
+import software.jevera.exceptions.BusinessException;
 import software.jevera.exceptions.EntityNotFound;
 import software.jevera.service.product.StateMachine;
 
@@ -44,8 +45,12 @@ public class ProductService {
         return this.productRepository.findByUser(user);
     }
 
-    public void publish(Long id) {
+    @SneakyThrows
+    public void publish(Long id, User user) {
         Product product = getProduct(id);
+        if (!product.getOwner().equals(user)) {
+            throw new AccessDeniedException(user.getLogin());
+        }
         stateMachine.publish(product);
         scheduleExecutor.scheduleFinish(id, product.getFinishDate(), this::finish);
         productRepository.save(product);
@@ -75,7 +80,15 @@ public class ProductService {
 
     private void assertIsNull(Long id, String message) {
         if (id != null) {
-            throw new BussinesException(message);
+            throw new BusinessException(message);
+        }
+    }
+
+    public List<Product> getAllProducts(Optional<Integer> maxPrice) {
+        if (maxPrice.isPresent()) {
+            return productRepository.findByMaxPrice(maxPrice.get());
+        } else {
+            return productRepository.findAll();
         }
     }
 }
