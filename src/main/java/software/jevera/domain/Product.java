@@ -13,12 +13,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import software.jevera.service.product.ProductStateEnum;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
 @EqualsAndHashCode(of = "id")
+@ToString
 public class Product {
     private Long id;
     private String name;

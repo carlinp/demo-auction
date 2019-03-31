@@ -1,5 +1,6 @@
 package software.jevera.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +15,8 @@ import lombok.ToString;
 @ToString
 public class User {
     private String login;
+
+    @JsonIgnore
     private String passwordHash;
 
 

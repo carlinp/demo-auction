@@ -14,4 +14,6 @@ public interface ProductRepository {
     List<Product> findByUser(User user);
 
     Optional<Product> findById(Long id);
+
+    List<Product> findByMaxPrice(Integer integer);
 }

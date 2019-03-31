@@ -1,9 +1,8 @@
 package software.jevera.service;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Bid;
@@ -14,21 +13,13 @@ import software.jevera.exceptions.EntityNotFound;
 import software.jevera.service.product.StateMachine;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    private ProductRepository productRepository;
-    private StateMachine stateMachine;
-    @Autowired
-    private ScheduleExecutor scheduleExecutor;
+    private final ProductRepository productRepository;
+    private final StateMachine stateMachine;
+    private final ScheduleExecutor scheduleExecutor;
 
-    public ProductService() {
-    }
-
-    @Autowired
-    public ProductService(ProductRepository productRepository, StateMachine stateMachine) {
-        this.productRepository = productRepository;
-        this.stateMachine = stateMachine;
-    }
 
     public Product createProduct(Product product, User user) {
         assertIsNull(product.getId(), "Id already exists.");
@@ -36,8 +27,12 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> getAllProducts() {
-        return this.productRepository.findAll();
+    public List<Product> getAllProducts(Optional<Integer> maxPrice) {
+        if (maxPrice.isEmpty()) {
+            return this.productRepository.findAll();
+        } else {
+            return this.productRepository.findByMaxPrice(maxPrice.get());
+        }
     }
 
     public List<Product> getUserProducts(User user) {

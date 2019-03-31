@@ -12,10 +12,6 @@ public class DemoAuctionApp {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(DemoAuctionApp.class, args);
-
-        ProductService productService = context.getBean(ProductService.class);
-        productService.createProduct(new Product(), new User());
-        System.out.println(productService.getAllProducts());
     }
 
 }
