@@ -1,0 +1,5 @@
+<dataset>
+    <USER LOGIN="userlogin" PASSWORD_HASH="passwordhash" />
+    <PRODUCT ID="15" NAME="name" STATUS="NEW" OWNER_LOGIN="userlogin" FINISH_DATE="3019-05-01 00:00:03" />
+    <COMMENT ID="1" TEXT="updated comment text" AUTHOR_LOGIN="userlogin" PRODUCT_ID="15" />
+</dataset>

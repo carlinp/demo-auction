@@ -14,7 +14,7 @@ import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
 
-@Repository
+
 public class ProductInMemoryRepository implements ProductRepository {
 
     private Set<Product> products = new HashSet<>();

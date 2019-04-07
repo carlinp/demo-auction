@@ -1,0 +1,4 @@
+<dataset>
+    <USER LOGIN="userlogin" PASSWORD_HASH="passwordhash" />
+    <PRODUCT ID="15" NAME="name" STATUS="NEW" OWNER_LOGIN="userlogin" FINISH_DATE="3019-05-01 00:00:03" />
+</dataset>

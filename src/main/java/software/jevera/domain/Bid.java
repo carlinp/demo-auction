@@ -6,9 +6,25 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class Bid {
+    private Long id;
     private Integer amount;
     private Product product;
     private User user;
+
+    public Bid() {
+    }
+
+    public Bid(Long id, Integer amount, Product product, User user) {
+        this.id = id;
+        this.amount = amount;
+        this.product = product;
+        this.user = user;
+    }
+
+    public Bid(Integer amount, Product product, User user) {
+        this.amount = amount;
+        this.product = product;
+        this.user = user;
+    }
 }

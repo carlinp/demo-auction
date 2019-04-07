@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import software.jevera.dao.UserRepository;
 import software.jevera.domain.User;
 
-@Repository
+
 public class UserInMemoryRepository implements UserRepository {
 
     private final List<User> users = new ArrayList<>();

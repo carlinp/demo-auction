@@ -1,0 +1,138 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ssenko
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: login
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: password_hash
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: start_price
+                  type: int
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: finish_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner_login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: buyer_login
+                  type: varchar(255)
+        - createTable:
+            tableName: bid
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(255)
+              - column:
+                  name: author_login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: comment
+            constraintName: fk_comment_product
+            referencedColumnNames: id
+            referencedTableName: product
+        - addForeignKeyConstraint:
+            baseColumnNames: author_login
+            baseTableName: comment
+            constraintName: fk_comment_author
+            referencedColumnNames: login
+            referencedTableName: user
+        - addForeignKeyConstraint:
+            baseColumnNames: user_login
+            baseTableName: bid
+            constraintName: fk_bid_user
+            referencedColumnNames: login
+            referencedTableName: user
+
+        - addForeignKeyConstraint:
+            baseColumnNames: owner_login
+            baseTableName: product
+            constraintName: fk_product_owner
+            referencedColumnNames: login
+            referencedTableName: user
+        - addForeignKeyConstraint:
+            baseColumnNames: buyer_login
+            baseTableName: product
+            constraintName: fk_product_buyer
+            referencedColumnNames: login
+            referencedTableName: user
+
