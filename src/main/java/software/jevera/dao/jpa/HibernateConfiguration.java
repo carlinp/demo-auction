@@ -6,9 +6,11 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.hibernate.cfg.AvailableSettings;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.jevera.domain.Bid;
@@ -32,7 +34,7 @@ public class HibernateConfiguration {
         properties.put(AvailableSettings.URL, dataSourceProperties.getUrl());
         properties.put(AvailableSettings.USER, dataSourceProperties.getUsername());
         properties.put(AvailableSettings.PASS, dataSourceProperties.getPassword());
-        properties.put(AvailableSettings.PHYSICAL_NAMING_STRATEGY, );
+        properties.put(AvailableSettings.PHYSICAL_NAMING_STRATEGY, SpringPhysicalNamingStrategy.class.getCanonicalName());
 
         EntityManagerFactory entityManagerFactory =
                 Persistence.createEntityManagerFactory("auction", properties);
