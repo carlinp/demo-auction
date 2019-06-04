@@ -34,12 +34,12 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private List<Comment> comments = new ArrayList<>();
     @ManyToOne
     private User owner;
     private Integer startPrice;
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private List<Bid> bids = new ArrayList<>();
     private Instant finishDate;
     @Enumerated(EnumType.STRING)

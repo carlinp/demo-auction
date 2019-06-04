@@ -10,14 +10,19 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import software.jevera.dao.CommentRepository;
 import software.jevera.dao.ProductRepository;
 import software.jevera.domain.Comment;
+import software.jevera.domain.Comment_;
 import software.jevera.domain.Product;
 import software.jevera.domain.User;
+import software.jevera.domain.User_;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,7 +38,7 @@ public class JpaCommentRepository implements CommentRepository {
             if (comment.getId() == null) {
                 entityManager.persist(comment);
             } else {
-                entityManager.merge(comment);
+                comment = entityManager.merge(comment);
             }
             entityManager.getTransaction().commit();
         } finally {
@@ -44,12 +49,37 @@ public class JpaCommentRepository implements CommentRepository {
 
     @Override
     public List<Comment> findByProductId(Long productId) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            List comments = entityManager.createQuery("SELECT c FROM Comment c WHERE c.product.id = " + productId)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+            return comments;
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public List<Comment> findByUser(User user) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Comment> query = cb.createQuery(Comment.class);
+            Root<Comment> root = query.from(Comment.class);
+            query = query.select(root)
+                         .where(
+                                 cb.equal(root.get(Comment_.author).get(User_.login), user.getLogin())
+                               );
+
+            entityManager.getTransaction().commit();
+            return entityManager.createQuery(query).getResultList();
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override

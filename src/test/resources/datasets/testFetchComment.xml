@@ -2,7 +2,7 @@
     <USER LOGIN="userlogin" PASSWORD_HASH="passwordhash" />
     <USER LOGIN="userlogin2" PASSWORD_HASH="passwordhash" />
     <PRODUCT ID="15" NAME="name" STATUS="NEW" OWNER_LOGIN="userlogin" FINISH_DATE="3019-05-01 00:00:03" />
-    <COMMENT ID="1" TEXT="updated comment text" AUTHOR_LOGIN="userlogin" PRODUCT_ID="15" />
+    <BID ID="1" AMOUNT="15" USER_LOGIN="userlogin" PRODUCT_ID="15" />
+    <COMMENT ID="1" TEXT="comment text" AUTHOR_LOGIN="userlogin" PRODUCT_ID="15" />
     <COMMENT ID="2" TEXT="comment text" AUTHOR_LOGIN="userlogin2" PRODUCT_ID="15" />
 </dataset>
-

@@ -6,7 +6,9 @@
     <persistence-unit name="auction">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
         </properties>
     </persistence-unit>
 

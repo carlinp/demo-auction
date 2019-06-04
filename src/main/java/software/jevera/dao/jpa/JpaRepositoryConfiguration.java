@@ -19,8 +19,8 @@ public class JpaRepositoryConfiguration {
     }
 
     @Bean
-    public ProductRepository productInMemoryRepository() {
-        return new ProductInMemoryRepository();
+    public ProductRepository productInMemoryRepository(EntityManagerFactory entityManagerFactory) {
+        return new JpaProductRepository(entityManagerFactory);
     }
 
     @Bean

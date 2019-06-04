@@ -7,4 +7,4 @@ spring:
     liquibase:
         change-log: db/changelog/db.changelog-master.yaml
 
-application.datamode: jdbc
+application.datamode: jpa

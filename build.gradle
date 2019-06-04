@@ -23,6 +23,20 @@ jar {
     }
 }
 
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file("src/generated/java")
+}
+
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/generated/java']
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -30,6 +44,12 @@ repositories {
 dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    annotationProcessor('org.hibernate:hibernate-jpamodelgen')
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen
+    implementation 'org.hibernate:hibernate-jpamodelgen'
+
 
     compileOnly 'org.mapstruct:mapstruct-processor:1.2.0.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.2.0.Final'
